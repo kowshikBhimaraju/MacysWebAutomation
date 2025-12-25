@@ -1,0 +1,65 @@
+{
+  "commonData": {
+    "divisionNumber": 12,
+    "userId": "BH23038",
+    "source": "Affinity",
+    "email": "kowshik.bhimaraju@macys.com",
+    "nuoAssortmentID": "F543D131-68A8-4AE2-A747-990969EBE94E",
+    "nuoAssortmentName": "Update reporting attibutes",
+    "nuoAssortmentExportTime": 1765962318193,
+    "creationIndicator": "create",
+    "tokenId": "e5e31087-dc23-4417-9981-920e8890919e",
+    "nuoAssortmentExportId": "A010C56C-F978-4DD4-A733-20C348CF4E24",
+    "message": {
+    }
+  },
+  "productData": [
+    {
+      "deptNumber": 414,
+      "vendNumber": 734,
+      "classNumber": 81,
+      "cost": 100,
+      "ownedRetail": 100,
+      "ticketedRetail": 100,
+      "skuUPCNumber": 196701025715,
+      "brandName": "GUESS",
+      "pid": "H5BTK78B",
+      "nrfColor": 409,
+      "nrfSize": 33905,
+      "subclassNumber": 86,
+      "mstyleDiv": 0,
+      "mstyleNumber": 0,
+      "productGroupL6Id": "L6_PrdType_112615",
+      "productGroupL6DisplayName": "Kids & Baby Pants",
+      "digitizeFlag": "N",
+      "upcLookupFlag": "N",
+      "multiOf": 1,
+      "vdfFlag": "N",
+      "pidDesc": "S S SIDE PKT KNT H5B",
+      "nrfColorDesc": "MDNGHT/IVR",
+      "nuoRowID": "1-1-1",
+      "nuoItemKey": "1-1-1",
+      "heroLook": "2026-Yes",
+      "tentpoleTrends": "S26 Q2-FANTASEA COVE",
+      "newness": "S26 Q1-Newness",
+      "assortmentArchitecture": "2026-Core Plus",
+      "seasonal": "Warm Weather",
+      "elevation": "Yes",
+      "giftsUnder": "H25 Gifts $15 and under",
+      "lifestyles": "Freestyle",
+      "mapPriceStyle": "Yes",
+      "mustHaves": "Yes",
+      "deliveryMonth": "February",
+      "nrfSizeDesc": "XL",
+      "customerFacingPidDesc": "HD MK NOVELTY NK CRE",
+      "customerFacingColorDesc": "CHAMBRAY",
+      "message": {
+        "pdfValidation": "success"
+      }
+    }
+  ],
+  "status": "SUCCESS",
+  "statusCode": 200,
+  "message": null,
+  "processTime": 1765962435
+}

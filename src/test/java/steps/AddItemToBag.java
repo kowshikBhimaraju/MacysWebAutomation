@@ -1,32 +1,37 @@
 package steps;
 
-import driver.DriverInitialization;
+import framework.core.DriverFactory;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.Screenshots;
+import utils.waitsUtils;
 
 import java.io.IOException;
-import java.nio.channels.WritableByteChannel;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
-public class AddItemToBag extends DriverInitialization {
+public class AddItemToBag {
 
     WebDriverWait webDriverWait;
     Actions actions;
     Select select;
 
+    waitsUtils waitsUtils;
+
+    public AddItemToBag() {
+        waitsUtils = new waitsUtils(driver);
+    }
+
     @Given("User navigates to Macy's landing page")
     public void user_navigates_to_macy_s_landing_page() throws IOException {
         driverInitialization();
-
     }
 
     @When("User enters product name {string}")
@@ -40,6 +45,7 @@ public class AddItemToBag extends DriverInitialization {
         //Whenever we are having mulitple list of elements in webpage we need to handle them using waits
         List<WebElement> listOfSearch = webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='search-suggestions']/ul[@class='grid-y']/li"))));
         System.out.println("Size of search list" + listOfSearch.size());
+//        waitsUtils.elementClickable(By.xpath("//div[@class='search-suggestions']/ul[@class='grid-y']/li")).click();
 
         //The elements
         for (WebElement brandList : listOfSearch) {
@@ -68,7 +74,7 @@ public class AddItemToBag extends DriverInitialization {
 
 
     @And("User selects the product and adds it to the bag")
-    public void user_selects_the_product_and_adds_it_to_the_bag() {
+    public void user_selects_the_product_and_adds_it_to_the_bag() throws IOException {
         actions = new Actions(driver);
         WebElement product = driver.findElement(By.xpath("(//div/div/a[@aria-labelledby=\"Women's V5 RNR Casual Sneakers from Finish Line\"]/div)[2]"));
         actions.moveToElement(product).click().perform();
@@ -85,11 +91,17 @@ public class AddItemToBag extends DriverInitialization {
         WebElement addToBag = driver.findElement(By.xpath("//button[@aria-label='Add To Bag']"));
         actions.moveToElement(productSizes).click().perform();
         actions.moveToElement(addToBag).click().perform();
+
+//        Screenshots screenshots = new Screenshots(driver);
+//        screenshots.takeScreenshot();
     }
 
     @Then("User checks the added items in bag")
-    public void user_checks_the_added_items_in_bag() throws InterruptedException {
-        driver.findElement(By.xpath("//a[text()='View Bag']")).click();
+    public void user_checks_the_added_items_in_bag() throws InterruptedException, IOException {
+        WebElement viewBag = driver.findElement(By.xpath("//a[text()='View Bag']"));
+        Screenshots screenshots = new Screenshots(driver);
+        screenshots.takeScreenshotOfSpecificElement(viewBag);
+        viewBag.click();
 
         int count = 1;
         for (int increaseQuantity = 1; increaseQuantity < 4; increaseQuantity++) {
@@ -119,7 +131,11 @@ public class AddItemToBag extends DriverInitialization {
     }
 
     @When("User enters shipping and payment details")
-    public void user_enters_shipping_and_payment_details() {
+    public void user_enters_shipping_and_payment_details() throws IOException {
+        WebElement tableOne = driver.findElement(By.xpath("//div[@id=\"rc-shipping-method-options-list-form\"]"));
+        Screenshots screenshots = new Screenshots(driver);
+        screenshots.takeScreenshotOfSpecificElement(tableOne);
+
         driver.findElement(By.cssSelector("input[name='firstName']")).sendKeys("Kowshik");
         driver.findElement(By.cssSelector("input[name='lastName']")).sendKeys("Bhimaraju");
         driver.findElement(By.xpath("//input[@name='address.addressLine1']")).sendKeys("New York");
@@ -133,15 +149,28 @@ public class AddItemToBag extends DriverInitialization {
             }
         }
 
+
         webDriverWait = new WebDriverWait(driver, Duration.ofMinutes(10));
         driver.findElement(By.cssSelector("input[name='address.phoneNumber'")).sendKeys("9229220982");
+
+        driver.findElement(By.xpath("//input[@name='address.addressLine2']")).sendKeys("Abcd");
+
         actions = new Actions(driver);
         WebElement saveAndContinue = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Save & Continue']")));
         actions.moveToElement(saveAndContinue).click().perform();
+
+
         WebElement addressConfirmation = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label='Use the entered address']")));
         addressConfirmation.click();
 
-        driver.findElement(By.xpath("//input[@id='cc-number']")).sendKeys("4445222299990007");
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        actions = new Actions(driver);
+
+        actions.moveToElement(driver.findElement(By.xpath("//h3[text()='Payment Method']"))).perform();
+        WebElement cardNumber = driver.findElement(By.xpath("//input[@name='cardNumber' and  @class='cc-number']"));
+        cardNumber.click();
+        cardNumber.sendKeys("4445222299990007");
 
         WebElement cardMonth = driver.findElement(By.xpath("//select[@aria-label='Expiration Date Month']"));
         select = new Select(cardMonth);
