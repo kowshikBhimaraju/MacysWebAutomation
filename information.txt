@@ -1,0 +1,10 @@
+Pending concepts:
+1. Manual test cases writing for selenium
+2. Implementing waits concept in framework level
+3. Taking Screenshots
+4. Captcha handling
+5. More keybord functions handling
+6. Cross browser testing
+7. Implementing jenkins to the project
+8. Axes xpath concept
+

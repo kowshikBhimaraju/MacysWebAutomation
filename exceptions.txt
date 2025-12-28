@@ -1,0 +1,15 @@
+Stale element:
+when we are using some dynamic lists or un ordered lists we need to break the loop, once
+our element is interacted
+Example code: //The elements
+                      for (WebElement brandList : listOfSearch) {
+                          String nameOfBrand = brandList.getText().trim();
+                          System.out.println("brand name " + nameOfBrand);
+                          if (nameOfBrand.equalsIgnoreCase("nike")) {
+                              brandList.click();
+                              break;
+                          }
+                      }
+
+
+InvalidSelectorException:
